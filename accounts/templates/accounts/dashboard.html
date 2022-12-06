@@ -56,7 +56,7 @@
           <td >{{order.date_created}}</td>
           <td >{{order.status}}</td>
           <td>
-            <a class="btn btn-warning" href="{% comment %} {% url 'update_order' order.id %} {% endcomment %}">Update</a> 
+            <a class="btn btn-warning" href="{% url 'update_order' order.id %}">Update</a> 
           </td>
           <td>
             <a class="btn btn-danger" href="{% comment %} {% url 'delete_order' order.id %} {% endcomment %}">Delete</a> 
