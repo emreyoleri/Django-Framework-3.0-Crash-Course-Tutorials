@@ -54,8 +54,9 @@
         <tr class="text-center p-3">
           <th class="text-center p-3">Product</th>
           <th class="text-center p-3">Price</th>
-          <th class="text-center p-3">Date Orderd</th>
+          <th class="text-center p-3">Date Order</th>
           <th class="text-center p-3">Status</th>
+          <th class="text-center p-3">Note</th>
           <th class="text-center p-3">Update</th>
           <th class="text-center p-3">Remove</th>
         </tr>
@@ -66,6 +67,7 @@
           <td class="text-center p-3 align-middle">{{order.product.price}}</td>
           <td class="text-center p-3 align-middle">{{order.date_created}}</td>
           <td class="text-center p-3 align-middle">{{order.status}}</td>
+          <td class="text-center p-3 align-middle">{{order.note}}</td>
           <td class="text-center p-3 align-middle">
             <a class="btn btn-warning" href="{% url 'update_order' order.id %}"
               >Update</a
