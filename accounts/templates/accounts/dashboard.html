@@ -3,15 +3,16 @@
 
 {% include "accounts/status.html" %}
 
+<br />
 
 <div class="row">
   <div class="col-md-5">
     <hr />
     <h5 class="text-center">CUSTOMERS</h5>
     <div class="card card-body">
-      <a class="btn btn-primary btn-sm btn-block" href="">Create Customer</a>
-      <table class="table table-sm">
-        <tr>
+      <a class="btn btn-primary btn-block" href="">Create Customer</a>
+      <table class="table">
+        <tr class="text-center">
           <th></th>
           <th>Customer</th>
           <th>Phone</th>
@@ -19,12 +20,12 @@
 
         {% for customer in customers %}
 
-        <tr>
-          <td class="align-middle">
-            <a class="btn btn-info btn-sm" href="">View</a> 
+        <tr class="align-middle text-center">
+          <td >
+            <a class="btn btn-info" href="{% url 'customer' customer.id %}">View</a> 
           </td>
-          <td class="align-middle">{{customer.name}}</td>
-          <td class="align-middle">{{customer.phone}}</td>
+          <td>{{customer.name}}</td>
+          <td>{{customer.phone}}</td>
         </tr>
         {% endfor %}
       </table>
@@ -36,12 +37,12 @@
 
     <h5 class="text-center">LAST 5 ORDERS</h5>
     <div class="card card-body">
-      <a class="btn btn-primary btn-sm btn-block" href="">Create Order</a>
-      <table class="table table-sm">
-        <tr>
+      <a class="btn btn-primary btn-block" href="{% comment %} {% url 'create_order' %} {% endcomment %}">Create Order</a>
+      <table class="table">
+        <tr class="text-center">
           <th>Customer</th>
           <th>Product</th>
-          <th>Date Orderd</th>
+          <th>Order Date</th>
           <th>Status</th>
           <th>Update</th>
           <th>Delete</th>
@@ -49,16 +50,16 @@
 
         {% for order in orders %}
 
-        <tr>
-          <td class="align-middle">{{order.customer}}</td>
-          <td class="align-middle">{{order.product}}</td>
-          <td class="align-middle">{{order.created_date}}</td>
-          <td class="align-middle">{{order.status}}</td>
+        <tr class="align-middle text-center">
+          <td >{{order.customer}}</td>
+          <td >{{order.product}}</td>
+          <td >{{order.date_created}}</td>
+          <td >{{order.status}}</td>
           <td>
-            <a class="btn btn-warning" href="">Update</a> 
+            <a class="btn btn-warning" href="{% comment %} {% url 'update_order' order.id %} {% endcomment %}">Update</a> 
           </td>
           <td>
-            <a class="btn btn-danger" href="">Delete</a> 
+            <a class="btn btn-danger" href="{% comment %} {% url 'delete_order' order.id %} {% endcomment %}">Delete</a> 
           </td>
         </tr>
         {% endfor %}
