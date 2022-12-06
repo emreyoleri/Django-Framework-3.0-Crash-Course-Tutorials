@@ -7,11 +7,11 @@
     <div class="card card-body">
       <h5>Customer:</h5>
       <hr />
-      <a class="btn btn-outline-info btn-sm btn-block" href=""
-        >Update Customer</a
-      >
-      <a class="btn btn-outline-danger btn-sm btn-block" href=""
-        >Delete Customer</a
+      <a class="btn btn-warning btn-block" href="">Update Customer</a>
+      <a
+        class="btn btn-info btn-block mt-1"
+        href="{% url 'create_order' customer.id %}"
+        >Place Order</a
       >
     </div>
   </div>
