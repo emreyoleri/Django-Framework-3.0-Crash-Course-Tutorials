@@ -3,10 +3,11 @@ from django.http import HttpResponse
 from django.forms import inlineformset_factory
 from .models import *
 from .forms import OrderForm
+from .filters import OrderFilter
 
 
 def home(request):
-    
+
     orders = Order.objects.all()
 
     customers = Customer.objects.all()
@@ -55,7 +56,7 @@ def createOrder(request, pk):
 
     customer = Customer.objects.get(id=pk)
 
-    formset = OrderFormSet(queryset=Order.objects.none() ,instance=customer)
+    formset = OrderFormSet(queryset=Order.objects.none(), instance=customer)
 
     # form = OrderForm(initial={"customer": customer})
 
