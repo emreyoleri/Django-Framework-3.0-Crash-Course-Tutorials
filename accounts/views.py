@@ -43,8 +43,12 @@ def customer(request, pk):
 
     total_orders = orders.count()
 
+    myFilter = OrderFilter(request.GET, queryset=orders)
+
+    orders = myFilter.qs
+
     context = {"customer": customer, "orders": orders,
-               "total_orders": total_orders}
+               "total_orders": total_orders, "myFilter": myFilter}
 
     return render(request, "accounts/customer.html", context)
 
