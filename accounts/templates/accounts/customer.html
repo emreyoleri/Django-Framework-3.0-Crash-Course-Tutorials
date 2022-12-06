@@ -50,7 +50,7 @@
   <div class="col-md">
     <div class="card card-body">
       <table class="table table-sm">
-        <tr>
+        <tr class="text-center p-3">
           <th class="text-center p-3">Product</th>
           <th class="text-center p-3">Price</th>
           <th class="text-center p-3">Date Orderd</th>
@@ -66,10 +66,14 @@
           <td class="text-center p-3 align-middle">{{order.date_created}}</td>
           <td class="text-center p-3 align-middle">{{order.status}}</td>
           <td class="text-center p-3 align-middle">
-            <a class="btn btn-warning" href="">Update</a>
+            <a class="btn btn-warning" href="{% url 'update_order' order.id %}"
+              >Update</a
+            >
           </td>
           <td class="text-center p-3 align-middle">
-            <a class="btn btn-danger" href="">Delete</a>
+            <a class="btn btn-danger" href="{% url 'delete_order' order.id %}"
+              >Delete</a
+            >
           </td>
         </tr>
         {% endfor %}

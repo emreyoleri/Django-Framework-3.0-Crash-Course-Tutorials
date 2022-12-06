@@ -59,7 +59,7 @@
             <a class="btn btn-warning" href="{% url 'update_order' order.id %}">Update</a> 
           </td>
           <td>
-            <a class="btn btn-danger" href="{% comment %} {% url 'delete_order' order.id %} {% endcomment %}">Delete</a> 
+            <a class="btn btn-danger" href="{% url 'delete_order' order.id %}">Delete</a> 
           </td>
         </tr>
         {% endfor %}
