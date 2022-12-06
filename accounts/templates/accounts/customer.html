@@ -1,5 +1,7 @@
 {% extends 'accounts/main.html' %} {% block content %}
 
+<br />
+
 <div class="row">
   <div class="col-md">
     <div class="card card-body">
@@ -18,8 +20,8 @@
     <div class="card card-body">
       <h5>Contact Information</h5>
       <hr />
-      <p>Email:</p>
-      <p>Phone:</p>
+      <p>Email: <b> {{customer.email}}</b></p>
+      <p>Phone: <b>{{customer.phone}} </b></p>
     </div>
   </div>
 
@@ -27,7 +29,7 @@
     <div class="card card-body">
       <h5>Total Orders</h5>
       <hr />
-      <h1 style="text-align: center; padding: 10px"></h1>
+      <h1 style="text-align: center; padding: 10px">{{total_orders}}</h1>
     </div>
   </div>
 </div>
@@ -49,13 +51,28 @@
     <div class="card card-body">
       <table class="table table-sm">
         <tr>
-          <th>Product</th>
-          <th>Category</th>
-          <th>Date Orderd</th>
-          <th>Status</th>
-          <th>Update</th>
-          <th>Remove</th>
+          <th class="text-center p-3">Product</th>
+          <th class="text-center p-3">Price</th>
+          <th class="text-center p-3">Date Orderd</th>
+          <th class="text-center p-3">Status</th>
+          <th class="text-center p-3">Update</th>
+          <th class="text-center p-3">Remove</th>
         </tr>
+
+        {% for order in orders %}
+        <tr>
+          <td class="text-center p-3 align-middle">{{order.product.name}}</td>
+          <td class="text-center p-3 align-middle">{{order.product.price}}</td>
+          <td class="text-center p-3 align-middle">{{order.date_created}}</td>
+          <td class="text-center p-3 align-middle">{{order.status}}</td>
+          <td class="text-center p-3 align-middle">
+            <a class="btn btn-warning" href="">Update</a>
+          </td>
+          <td class="text-center p-3 align-middle">
+            <a class="btn btn-danger" href="">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
       </table>
     </div>
   </div>
