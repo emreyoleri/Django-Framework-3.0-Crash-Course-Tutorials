@@ -49,4 +49,4 @@ class Order(models.Model):
     status = models.CharField(max_length=255, null=True, choices=STATUS)
 
     def __str__(self):
-        return f"{self.product}"
+        return f"{self.customer.name} - {self.product} - {self.status} "
