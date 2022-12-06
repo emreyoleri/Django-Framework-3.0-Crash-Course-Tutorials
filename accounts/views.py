@@ -6,6 +6,7 @@ from .forms import OrderForm
 
 
 def home(request):
+    
     orders = Order.objects.all()
 
     customers = Customer.objects.all()
@@ -25,6 +26,7 @@ def home(request):
 
 
 def products(request):
+
     products = Product.objects.all()
 
     context = {"products": products}
@@ -33,6 +35,7 @@ def products(request):
 
 
 def customer(request, pk):
+
     customer = Customer.objects.get(id=pk)
 
     orders = customer.order_set.all()
@@ -76,6 +79,7 @@ def createOrder(request, pk):
 
 
 def updateOrder(request, pk):
+
     order = Order.objects.get(id=pk)
 
     form = OrderForm(instance=order)
@@ -96,10 +100,13 @@ def updateOrder(request, pk):
 
 
 def deleteOrder(request, pk):
+
     order = Order.objects.get(id=pk)
 
     if request.method == "POST":
+
         order.delete()
+
         return redirect("home")
 
     context = {"item": order}
