@@ -12,7 +12,7 @@ from .forms import OrderForm, CreateUserForm
 from .filters import OrderFilter
 
 
-def register(request):
+def registerPage(request):
 
     form = CreateUserForm()
 
@@ -35,13 +35,13 @@ def register(request):
     return render(request, "accounts/register.html", context)
 
 
-def login(request):
+def loginPage(request):
 
     if request.method == "POST":
 
-        username = request.post.get("username")
+        username = request.POST.get("username")
 
-        password = request.post.get("password")
+        password = request.POST.get("password")
 
         user = authenticate(request, username=username, password=password)
 
@@ -55,9 +55,9 @@ def login(request):
 
             messages.info(request, "username OR password is incorrect")
 
-        context = {}
+    context = {}
 
-        return render(request, "accounts/login.html", context)
+    return render(request, "accounts/login.html", context)
 
 
 def logoutUser(request):
