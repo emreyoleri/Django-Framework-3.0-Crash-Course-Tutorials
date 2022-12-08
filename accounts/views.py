@@ -3,18 +3,13 @@ from django.http import HttpResponse
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import UserCreationForm
 
+from django.contrib.auth import authenticate, login, logout
+
 from django.contrib import messages
 
 from .models import *
 from .forms import OrderForm, CreateUserForm
 from .filters import OrderFilter
-
-
-def login(request):
-
-    context = {}
-
-    return render(request, "accounts/login.html", context)
 
 
 def register(request):
@@ -40,6 +35,38 @@ def register(request):
     return render(request, "accounts/register.html", context)
 
 
+def login(request):
+
+    if request.method == "POST":
+
+        username = request.post.get("username")
+
+        password = request.post.get("password")
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+
+            login(request, user)
+
+            return redirect("home")
+
+        else:
+
+            messages.info(request, "username OR password is incorrect")
+
+        context = {}
+
+        return render(request, "accounts/login.html", context)
+
+
+def logoutUser(request):
+
+    logout(request)
+
+    return redirect("login")
+
+
 def home(request):
 
     orders = Order.objects.all()
@@ -54,8 +81,14 @@ def home(request):
 
     pending = orders.filter(status="Pending").count()
 
-    context = {"orders": orders, "customers": customers,
-               "total_orders": total_orders, "total_customers": total_customers, "delivered": delivered, "pending": pending}
+    context = {
+        "orders": orders,
+        "customers": customers,
+        "total_orders": total_orders,
+        "total_customers": total_customers,
+        "delivered": delivered,
+        "pending": pending
+    }
 
     return render(request, "accounts/dashboard.html", context)
 
@@ -81,8 +114,12 @@ def customer(request, pk):
 
     orders = myFilter.qs
 
-    context = {"customer": customer, "orders": orders,
-               "total_orders": total_orders, "myFilter": myFilter}
+    context = {
+        "customer": customer,
+        "orders": orders,
+        "total_orders": total_orders,
+        "myFilter": myFilter
+    }
 
     return render(request, "accounts/customer.html", context)
 
@@ -96,11 +133,7 @@ def createOrder(request, pk):
 
     formset = OrderFormSet(queryset=Order.objects.none(), instance=customer)
 
-    # form = OrderForm(initial={"customer": customer})
-
     if request.method == "POST":
-
-        # form = OrderForm(request.POST)
 
         formset = OrderFormSet(request.POST, instance=customer)
 
@@ -109,8 +142,6 @@ def createOrder(request, pk):
             formset.save()
 
             return redirect("home")
-
-    # context = {"form": form}
 
     context = {"formset": formset}
 
