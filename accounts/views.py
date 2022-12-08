@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import UserCreationForm
 
+from django.contrib import messages
+
 from .models import *
 from .forms import OrderForm, CreateUserForm
 from .filters import OrderFilter
@@ -26,6 +28,12 @@ def register(request):
         if form.is_valid():
 
             form.save()
+
+            username = form.cleaned_data.get("username")
+
+            messages.success(request, "Account was created for " + username)
+
+            return redirect("login")
 
     context = {"form": form}
 
