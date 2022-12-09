@@ -11,7 +11,10 @@ class Customer(models.Model):
     date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
-        return f"{self.user.username}"
+        if self.name is not None:
+            return f"{self.name}"
+        else:
+            return f"{self.user.username}"
 
 
 class Tag(models.Model):
