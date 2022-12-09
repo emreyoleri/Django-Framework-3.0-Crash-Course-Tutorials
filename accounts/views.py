@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.contrib import messages
 
-from .decorators import unauthenticated_user
+from .decorators import unauthenticated_user, allowed_users
 from .models import *
 from .forms import OrderForm, CreateUserForm
 from .filters import OrderFilter
@@ -73,8 +73,8 @@ def logoutUser(request):
 
 
 @login_required(login_url="login")
+@allowed_users(allowed_roles=["admin"])
 def home(request):
-
     orders = Order.objects.all()
 
     customers = Customer.objects.all()
@@ -105,6 +105,7 @@ def userPage(request):
 
 
 @login_required(login_url="login")
+@allowed_users(allowed_roles=["admin"])
 def products(request):
 
     products = Product.objects.all()
@@ -115,6 +116,7 @@ def products(request):
 
 
 @login_required(login_url="login")
+@allowed_users(allowed_roles=["admin"])
 def customer(request, pk):
 
     customer = Customer.objects.get(id=pk)
@@ -138,6 +140,7 @@ def customer(request, pk):
 
 
 @login_required(login_url="login")
+@allowed_users(allowed_roles=["admin"])
 def createOrder(request, pk):
 
     OrderFormSet = inlineformset_factory(
@@ -163,6 +166,7 @@ def createOrder(request, pk):
 
 
 @login_required(login_url="login")
+@allowed_users(allowed_roles=["admin"])
 def updateOrder(request, pk):
 
     order = Order.objects.get(id=pk)
@@ -185,6 +189,7 @@ def updateOrder(request, pk):
 
 
 @login_required(login_url="login")
+@allowed_users(allowed_roles=["admin"])
 def deleteOrder(request, pk):
 
     order = Order.objects.get(id=pk)
