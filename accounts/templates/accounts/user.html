@@ -4,7 +4,31 @@
 
 {% include "accounts/status.html" %}
 
-<h3>User Profile</h3>
+<div class="row">
+    <div class="col-md">
+      <div class="card card-body">
+        <table class="table table-sm">
+          <tr class="text-center p-3">
+            <th class="text-center p-3">Product</th>
+            <th class="text-center p-3">Price</th>
+            <th class="text-center p-3">Date Order</th>
+            <th class="text-center p-3">Status</th>
+            <th class="text-center p-3">Note</th>
+          </tr>
+  
+          {% for order in orders %}
+          <tr>
+            <td class="text-center p-3 align-middle">{{order.product.name}}</td>
+            <td class="text-center p-3 align-middle">{{order.product.price}}</td>
+            <td class="text-center p-3 align-middle">{{order.date_created}}</td>
+            <td class="text-center p-3 align-middle">{{order.status}}</td>
+            <td class="text-center p-3 align-middle">{{order.note}}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
 
 {% endblock content %}
 
