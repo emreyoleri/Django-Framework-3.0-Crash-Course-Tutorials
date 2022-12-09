@@ -5,10 +5,11 @@ from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
 
 from django.contrib import messages
 
-from .decorators import unauthenticated_user, allowed_users
+from .decorators import unauthenticated_user, allowed_users, admin_only
 from .models import *
 from .forms import OrderForm, CreateUserForm
 from .filters import OrderFilter
@@ -25,9 +26,13 @@ def registerPage(request):
 
         if form.is_valid():
 
-            form.save()
+            user = form.save()
 
             username = form.cleaned_data.get("username")
+
+            group = Group.objects.get(name="customer")
+
+            user.groups.add(group)
 
             messages.success(
                 request, "Account was created for " + username)
@@ -72,8 +77,9 @@ def logoutUser(request):
     return redirect("login")
 
 
+# @allowed_users(allowed_roles=["admin"])
 @login_required(login_url="login")
-@allowed_users(allowed_roles=["admin"])
+@admin_only
 def home(request):
     orders = Order.objects.all()
 
