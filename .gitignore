@@ -1,3 +1,5 @@
 static/images/*.jpg
 static/images/*.png
 */static/images/**
+crm1.code-workspace
+db.sqlite3
