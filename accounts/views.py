@@ -34,7 +34,8 @@ def registerPage(request):
 
             user.groups.add(group)
 
-            Customer.objects.create(user=user)
+            Customer.objects.create(
+                user=user, name=user.username, email=user.email)
 
             messages.success(
                 request, "Account was created for " + username)
@@ -144,6 +145,12 @@ def accountSettings(request):
         if form.is_valid():
 
             form.save()
+
+            if not customer.profile_pic:
+
+                customer.profile_pic = "user-logo1.jpg"
+
+                customer.save()
 
     context = {"form": form}
 
